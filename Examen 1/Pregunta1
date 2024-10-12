@@ -1,0 +1,10 @@
+1. Diga que tipo de alcances y asociaciones posee, argumentando las ventajas y desventajas de la decisión
+tomada por los diseñadores del lenguaje, en el contexto de sus usuarios objetivos.
+
+2. Diga que tipo de módulos ofrece (de tenerlos) y las diferentes formas de importar y exportar nombres.
+
+3. Diga si el lenguaje ofrece la posibilidad de crear aliases, sobrecarga y polimorfismo. En caso afirmativo
+de algunos ejemplos.
+
+4. Diga que herramientas ofrece a potenciales desarrolladores, como: compiladores, intérpretes, debuggers, 
+profilers, frameworks, etc.
