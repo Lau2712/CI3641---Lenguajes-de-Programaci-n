@@ -1,0 +1,115 @@
+1. Diga que tipo de alcances y asociaciones posee, argumentando las ventajas y desventajas de la decisión
+tomada por los diseñadores del lenguaje, en el contexto de sus usuarios objetivos.
+
+    - Alcances: Lua posee un alcance estático, es decir, es independiente del flujo de ejecución.Sus variables 
+    son accesibles tanto en el ámbito en el que fueron declaradas como en sus respectivos anidamientos.
+
+            - Ventajas
+                - Al tener lenguaje estático se tiene un control preciso sobre el estado de las variables, lo cual
+                contribuye con la limpieza del código y a mantener el código modular. Un código legible le facilita 
+                a los desarrolladores de videojuegos 
+                - Este tipo de alcance contribuye con la previsibilidad, es decir, evita conflictos de nombres
+                y algunos efectos secundarios; esto siempre y cuando no se declaren múltiples variables globales.
+            
+            - Desventajas
+                - Como se menciono anteriormente, si se emplean variables globales de forma excesiva pueden ocurrir
+                comportamientos inesperado y ocasionando que la depuración sea difícil.
+    
+    - Asociaciones: las asociaciones en Lua son de tipo estático, pues se contruyen antes de ejecutar el programa y se
+    mantienen durante la duración del alcance del mismo. En particular, Lua tiene asociaciones por valor y por referencia.
+
+        - Por valor: aquellas variables que contienen valores de tipo primitivo (números, cadenas, booleanos, etc.) son 
+        copiadas en la asignación, y el cambio de alguna de ellas no afecta a otras que fueron asignadas previamente.
+
+        - Por referencia: Lua emplea tablas, asignar a dos variable la misma tabla implica que ambas apuntarán a los mismos
+        valores, por lo que cualquier cambio que se realice a la tabla por medio de alguna de las variables se verá reflejado
+        en las otras.
+
+            - Ventajas
+                - Las asociaciones por referencia permiten trabajar con estructuras de datos complejas (tablas) y además de 
+                permitir una manipulación más sencilla de los datos.
+            
+            - Desventajas
+                - El hecho de modificar una tabla por medio de variables, puede ocasionar embasuramiento en la data, así como
+                otros efectos secundarios, si las asociaciones no son controladas adecuadamente.
+    
+    Para los usuarios objetivos de Lua (desarrolladores de videojuegos) el hecho que exista un alcance y una asociación estática les
+    permite confiar en que las variables tendrán los valores asignados cuando el código sea ejecutado, lo cual favorece su enfoque en
+    la lógica del juego y desligarse de los errores ocasionados por datos embasurados. Además, la asociación temprana facilita la gestión
+    del estado del juego y la depuración más efectiva porque conocen el valor de las variables en cada contexto.
+
+    Sin embargo, el principal problema que enfrentan los desarrolladores son las variables globales, pues es común emplearlas en diversas
+    partes del juego y su uso excesivo puede generar conflictos de nombres, obligando a los desarrolladores a emplear diseños adicionales 
+    para mantener el orden y el funcionamiento del código. Además, de las mutaciones que pueden ocasionar las tablas, siempre y cuando no se
+    gestionen de forma adecuada, provocando errores difíciles de loscalizar que afectan el rendimiento del juego.
+
+2. Diga que tipo de módulos ofrece (de tenerlos) y las diferentes formas de importar y exportar nombres.
+
+    Lua cuenta con un módulo estándar, el cual se asemeja al módulo como librería, como lo son el módulo math, string y table. Además, también
+    cuenta con módulos personalizados, es decir, los usuarios pueden crear sus propios módulos cuando lo deseen.
+
+    Para exportar nombres de un módulo usualmente se utiliza una tabla que contenga aquellos nombres que se desean exportar. Mientras que para
+    importar nombres a un módulo se emplea el comando "require", el cual se encarga de cargar y devolver el módulo indicado.
+
+3. Diga si el lenguaje ofrece la posibilidad de crear aliases, sobrecarga y polimorfismo. En caso afirmativo
+de algunos ejemplos.
+
+    Lua permite crear alias definiendolos como variables locales que pueden ser asignadas a otras variables. Pero no consta con un sistema 
+    formal como en otros lenguajes. Por ejemplo:
+
+        local puntuacion = { nombre = "Jugador", puntos = 0}
+
+        local alias = puntuacion
+
+        alias.puntos = 10
+
+        print(puntuacion.puntos) -- imprime 10
+        print(alias.puntos) -- imprime 10
+    
+    En este caso, el alias es una variable local que apunta a la variable "puntuacion", por lo que cualquier cambio que se realice a la
+    variable "alias" también se verá reflejado en la variable "puntuacion".
+
+    Lua no tolera la sobrecarga de funciones, esto pues no permite definir múltiples funciones con el mismo nombre pero que tengan
+    diferentes argumentos. Aunque, si es posible simular la sobrecarga variando el manejo de argumentos y condiciones dentro de la
+    función. Un ejemplo de simulación es:
+
+        function suma(a, b)
+            if b == nil then
+                return a + a
+            end
+            return a + b
+        end
+
+        print(suma(5, 10)) -- imprime 15
+        print(suma(5)) -- imprime 10
+
+    En este caso, la función "suma" se puede comportar de dos formas dependiendo del número de argumentos que se pasen. Lo cual simula
+    una sobrecarga.
+
+    Lua admite algunos tipos de polimorfismo por medio de sus tablas y funciones, pues puede pasar distintos objetos que tengan el mismo
+    nombre y que cada uno tenga un comportamiento diferente. Por ejemplo:
+
+        function dibujo(figura)
+            if figura.type == "círculo" then
+                dibujar círculo
+            elseif figura.type == "rectángulo" then
+                dibujar rectángulo
+            end
+        end
+
+    En este caso, el nombre de la función "dibujo" es el mismo para ambos tipos de figuras, pero cada una tiene un comportamiento
+    diferente.
+
+4. Diga que herramientas ofrece a potenciales desarrolladores, como: compiladores, intérpretes, debuggers, 
+profilers, frameworks, etc.
+
+    Lua ofrece varias herramientas y recursos para ayudar a los desarrolladores a crear aplicaciones de manera más eficiente.
+
+        - Intérpretes: Lua cuenta con un intérprete ligero, fácil de usar y que se puede ejecutar en múltiples plataformas.
+        - Compiladores: Hay compiladores que convierten código Lua a código de byte, optimizando la ejecución.
+        - Debuggers: Lua cuenta con una librería de depuración para inspeccionar el estado del programa y realizar pruebas.
+        - Profilers: Lua cuenta con LuaProfile el cual permite realizar un análisis de rendimiento del código.
+        - Frameworks: Hay frameworks desarrollados por Lua como LÖVE, el cual es empleado en el desarrollo de videojuegos y
+        OpenResty empleado en el desarrollo de aplicaciones web.
+        - Bibliotecas: Lua cuenta con una gran cantidad de bibliotecas, por mencionar algunas están: LuaSocket (redes), LuaSQL
+        (base de datos) y Luarocks (gestión de módulos).
