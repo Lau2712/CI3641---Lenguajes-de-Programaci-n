@@ -25,10 +25,10 @@ function Simulador:DEFINIR(tipo, ...)
         local nombre, lenguaje = args[1], args[2]
         
         if self.programas[nombre] then
-            print("Error: ya se ha ingresado un programa con el nombre ' " .. nombre .. "'.")
+            print("Error: ya se ha ingresado un programa con el nombre '" .. nombre .. "'.")
         else
             self.programas[nombre] = lenguaje
-            print("Se ha definido el programa ' " .. nombre .. "' ejecutable en ' " .. lenguaje .. "'.")
+            print("Se ha definido el programa '" .. nombre .. "', ejecutable en '" .. lenguaje .. "'.")
         end
 
     -- Si se va a ingresar un interprete
@@ -36,7 +36,7 @@ function Simulador:DEFINIR(tipo, ...)
         local lenguaje_base, lenguaje = args[1], args[2]
 
         self.interpretes[lenguaje] = lenguaje_base
-        print("Se definió un interprete para ' " .. lenguaje .. "' escrito en ' " .. lenguaje_base .. "'.")
+        print("Se definió un interprete para '" .. lenguaje .. "', escrito en '" .. lenguaje_base .. "'.")
 
     -- Si se va a ingresar un traductor
     elseif tipo == "TRADUCTOR" then
@@ -48,7 +48,7 @@ function Simulador:DEFINIR(tipo, ...)
         end
 
         self.traductores[lenguaje_origen][lenguaje_destino] = lenguaje_base
-        print("Se definió un traductor de ' " .. lenguaje_origen .. "' hacia ' " .. lenguaje_destino .. "', escrito en ' " .. lenguaje_base .. "'.")
+        print("Se definió un traductor de '" .. lenguaje_origen .. "' hacia '" .. lenguaje_destino .. "', escrito en '" .. lenguaje_base .. "'.")
     
     -- Si se ingresa una definición incorrecta
     else
@@ -86,8 +86,10 @@ function Simulador:EJECUTABLE(nombre)
         end
 
         if self.traductores[lenguaje] then
-            for destino, origen in pairs(self.traductores[lenguaje]) do
-                if puedeEjecutar(origen, visitado) and puedeEjecutar(destino, visitado) then
+            for destino, base in pairs(self.traductores[lenguaje]) do
+                local nuevosVisitados = {}
+                for k, v in pairs(visitado) do nuevosVisitados[k] = v end
+                if puedeEjecutar(base, nuevosVisitados) and puedeEjecutar(destino, nuevosVisitados) then
                     return true
                 end
             end
@@ -101,10 +103,17 @@ function Simulador:EJECUTABLE(nombre)
     local resultado = puedeEjecutar(self.programas[nombre], {})
 
     if resultado then
-        print("Si, es posible ejecutar el programa ' " .. nombre .. "'.")
+        print("Si, es posible ejecutar el programa '" .. nombre .. "'.")
     else
-        print("No es posible ejecutar el programa ' " .. nombre .. "'.")
+        print("No es posible ejecutar el programa '" .. nombre .. "'.")
     end
+end
+
+-- Función auxiliar para copiar tablas
+function table.copy(t)
+    local u = {}
+    for k, v in pairs(t) do u[k] = v end
+    return setmetatable(u, getmetatable(t))
 end
 
 -- Definimos la inicialización del simulador
