@@ -131,7 +131,7 @@ function Simulador:INICIAR()
 
         local comando = args[1]
         if comando == "DEFINIR" then
-            self.DEFINIR(table.unpack(args, 2))
+            self:DEFINIR(args[2], table.unpack(args, 3))
         elseif comando == "EJECUTABLE" then
             self:EJECUTABLE(args[2])
         elseif comando == "SALIR" then
