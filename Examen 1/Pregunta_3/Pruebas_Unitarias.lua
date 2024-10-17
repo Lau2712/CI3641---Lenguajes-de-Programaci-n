@@ -33,24 +33,29 @@ local pruebas = {
     end,
 
     test_definicion_incorrecta = function()
-    local sim = Simulador
-    assert_salida("Error: ' ALGO' no es una definición correcta.", sim.DEFINIR, sim, "ALGO", "x", "y")
-end,
+        local sim = Simulador
+        assert_salida("Error: ' ALGO' no es una definición correcta.", sim.DEFINIR, sim, "ALGO", "x", "y")
+    end,
 
-test_ejecutar_programa_no_definido = function()
-    local sim = Simulador
-    sim.programas = {}
-    assert_salida("Error: El programa ' noexiste' no está definido.", sim.EJECUTABLE, sim, "noexiste")
-end,
+    test_definir_programa_nombre_vacio = function()
+        local sim = Simulador
+        assert_salida("Error: El nombre del programa no puede estar vacío.", sim.DEFINIR, sim, "PROGRAMA", "", "LOCAL")
+    end,
 
-test_programa_no_ejecutable = function()
-    local sim = Simulador
-    sim.programas = {}
-    sim.interpretes = {}
-    sim.traductores = {}
-    sim:DEFINIR("PROGRAMA", "inalcanzable", "LenguajeX")
-    assert_salida("No es posible ejecutar el programa 'inalcanzable'.", sim.EJECUTABLE, sim, "inalcanzable")
-end,
+    test_ejecutar_programa_no_definido = function()
+        local sim = Simulador
+        sim.programas = {}
+        assert_salida("Error: El programa ' noexiste' no está definido.", sim.EJECUTABLE, sim, "noexiste")
+    end,
+
+    test_programa_no_ejecutable = function()
+        local sim = Simulador
+        sim.programas = {}
+        sim.interpretes = {}
+        sim.traductores = {}
+        sim:DEFINIR("PROGRAMA", "inalcanzable", "LenguajeX")
+        assert_salida("No es posible ejecutar el programa 'inalcanzable'.", sim.EJECUTABLE, sim, "inalcanzable")
+    end,
 
     test_ejecucion = function()
         local sim = Simulador
@@ -67,19 +72,45 @@ end,
         assert_salida("Si, es posible ejecutar el programa 'factorial'.", sim.EJECUTABLE, sim, "factorial")
     end,
 
-    test_ejecucion_compleja = function()
+    test_ejecucion_cadena_larga = function()
         local sim = Simulador
         sim.programas = {}
         sim.interpretes = {}
         sim.traductores = {}
-        sim:DEFINIR("PROGRAMA", "holamundo", "Python3")
-        sim:DEFINIR("TRADUCTOR", "wtf42", "Python3", "LOCAL")
-        sim:DEFINIR("INTERPRETE", "LOCAL", "wtf42")
+        
+        sim:DEFINIR("PROGRAMA", "prog1", "Lang1")
+        sim:DEFINIR("TRADUCTOR", "Lang2", "Lang1", "Lang2")
+        sim:DEFINIR("TRADUCTOR", "Lang3", "Lang2", "Lang3")
+        sim:DEFINIR("TRADUCTOR", "Lang4", "Lang3", "Lang4")
+        sim:DEFINIR("INTERPRETE", "LOCAL", "Lang4")
+        
+        assert_salida("Si, es posible ejecutar el programa 'prog1'.", sim.EJECUTABLE, sim, "prog1")
+    end,
 
-        assert_salida(
-            "Si, es posible ejecutar el programa 'holamundo'.",
-            sim.EJECUTABLE, sim, "holamundo"
-        )
+    test_ejecucion_ciclo = function()
+        local sim = Simulador
+        sim.programas = {}
+        sim.interpretes = {}
+        sim.traductores = {}
+        
+        sim:DEFINIR("PROGRAMA", "prog2", "LangA")
+        sim:DEFINIR("TRADUCTOR", "LangB", "LangA", "LangB")
+        sim:DEFINIR("TRADUCTOR", "LangC", "LangB", "LangC")
+        sim:DEFINIR("TRADUCTOR", "LangA", "LangC", "LangA")
+        
+        assert_salida("No es posible ejecutar el programa 'prog2'.", sim.EJECUTABLE, sim, "prog2")
+    end,
+
+    test_definiciones_duplicadas = function()
+        local sim = Simulador
+        sim.interpretes = {}
+        sim.traductores = {}
+        
+        assert_salida("Se definió un interprete para 'Java', escrito en 'C'.", sim.DEFINIR, sim, "INTERPRETE", "C", "Java")
+        assert_salida("Se definió un interprete para 'Java', escrito en 'Python'.", sim.DEFINIR, sim, "INTERPRETE", "Python", "Java")
+        
+        assert_salida("Se definió un traductor de 'Java' hacia 'C', escrito en 'C'.", sim.DEFINIR, sim, "TRADUCTOR", "C", "Java", "C")
+        assert_salida("Se definió un traductor de 'Java' hacia 'C', escrito en 'Python'.", sim.DEFINIR, sim, "TRADUCTOR", "Python", "Java", "C")
     end,
 }
 

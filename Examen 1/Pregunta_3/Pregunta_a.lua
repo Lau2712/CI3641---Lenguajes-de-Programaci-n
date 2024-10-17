@@ -26,6 +26,9 @@ function Simulador:DEFINIR(tipo, ...)
         
         if self.programas[nombre] then
             print("Error: ya se ha ingresado un programa con el nombre '" .. nombre .. "'.")
+        
+        elseif nombre == "" then
+            print("Error: El nombre del programa no puede estar vacío.")
         else
             self.programas[nombre] = lenguaje
             print("Se ha definido el programa '" .. nombre .. "', ejecutable en '" .. lenguaje .. "'.")
