@@ -39,11 +39,13 @@ function Cuaternion:__mul(otro)
     end
 end
 
-function Cuaternion:conjugar()
+-- Operador de conjugado (^)
+Cuaternion.__pow = function(self, _)
     return Cuaternion.nuevo(self.a, -self.b, -self.c, -self.d)
 end
 
-function Cuaternion:medida()
+-- Operador de valor absoluto (#)
+Cuaternion.__len = function(self)
     return math.sqrt(self.a^2 + self.b^2 + self.c^2 + self.d^2)
 end
 

@@ -49,13 +49,13 @@ local pruebas = {
 
     test_cuaternion_conjugado = function()
         local q = Cuaternion(1, 2, 3, 4)
-        local result = q:conjugar()
+        local result = q^1
         assert_equal("1.00 + -2.00i + -3.00j + -4.00k", tostring(result))
     end,
 
     test_valor_absoluto_cuaternion = function()
         local q = Cuaternion(1, 2, 3, 4)
-        local result = q:medida()
+        local result = #q
         assert_near(5.477, result, 0.001)
     end,
 
@@ -63,7 +63,7 @@ local pruebas = {
         local a = Cuaternion(1, 2, 3, 4)
         local b = Cuaternion(5, 6, 7, 8)
         local c = Cuaternion(9, 10, 11, 12)
-        local result = (b + b) * (c + a:conjugar())
+        local result = (b + b) * (c + a^1)
         assert_equal("-236.00 + 184.00i + 252.00j + 224.00k", tostring(result))
     end,
 }
