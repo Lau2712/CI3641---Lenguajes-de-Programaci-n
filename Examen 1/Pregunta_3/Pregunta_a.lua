@@ -82,14 +82,12 @@ function Simulador:EJECUTABLE(nombre)
 
         -- Para poder ejecutar el lenguaje, este debe tener asociado un interprete y un traductor
         if self.interpretes[lenguaje] then
-            return puedeEjecutar(self.interpretes[lenguaje], visitado)
+            return puedeEjecutar(self.interpretes[lenguaje], table.copy(visitado))
         end
 
         if self.traductores[lenguaje] then
             for destino, base in pairs(self.traductores[lenguaje]) do
-                local nuevosVisitados = {}
-                for k, v in pairs(visitado) do nuevosVisitados[k] = v end
-                if puedeEjecutar(base, nuevosVisitados) and puedeEjecutar(destino, nuevosVisitados) then
+                if puedeEjecutar(base, table.copy(visitado)) and puedeEjecutar(destino, table.copy(visitado)) then
                     return true
                 end
             end

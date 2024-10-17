@@ -32,6 +32,26 @@ local pruebas = {
         assert_salida("Se definió un traductor de 'Java' hacia 'C', escrito en 'C'.", sim.DEFINIR, sim, "TRADUCTOR", "C", "Java", "C")
     end,
 
+    test_definicion_incorrecta = function()
+    local sim = Simulador
+    assert_salida("Error: ' ALGO' no es una definición correcta.", sim.DEFINIR, sim, "ALGO", "x", "y")
+end,
+
+test_ejecutar_programa_no_definido = function()
+    local sim = Simulador
+    sim.programas = {}
+    assert_salida("Error: El programa ' noexiste' no está definido.", sim.EJECUTABLE, sim, "noexiste")
+end,
+
+test_programa_no_ejecutable = function()
+    local sim = Simulador
+    sim.programas = {}
+    sim.interpretes = {}
+    sim.traductores = {}
+    sim:DEFINIR("PROGRAMA", "inalcanzable", "LenguajeX")
+    assert_salida("No es posible ejecutar el programa 'inalcanzable'.", sim.EJECUTABLE, sim, "inalcanzable")
+end,
+
     test_ejecucion = function()
         local sim = Simulador
         sim.programas = {}
