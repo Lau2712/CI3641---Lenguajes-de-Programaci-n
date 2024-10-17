@@ -8,6 +8,9 @@
 
 -- c. Los cuaterniones deben poder operarse también con números enteros o flotantes por la derecha (suma y producto).
 
+-- Nota: Lua no reconoce el operador "&" en su lugar se empleó el operador "#" y el operador "~" está asignado para realizar la 
+-- operación bitwise NOT, por lo que en su lugar se empleó el operador "^".
+
 local Cuaternion = {}
 Cuaternion.__index = Cuaternion
 
