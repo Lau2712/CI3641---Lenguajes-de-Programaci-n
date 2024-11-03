@@ -1,0 +1,68 @@
+1. Enumere y explique las estructuras de control de flujo de Lua.
+    Secuenciación:
+        - goto: Transfiere el control a una etiqueta determinada.
+        - break: Sale del bucle actual.
+        - return: Retorna el control a la función que lo invoca.
+    
+    Selección Simple: 
+        - if-then-else: Permiten ejecutar el código por medio de una condición.
+    
+    Selección Múltiple:
+        - elseif: Permite añadir condiciones adicionales a la condición anterior.
+    
+    Repetición Indeterminada:
+        - while: Ejecuta un bloque de código mientras la condición indicada al inicio sea verdadera.
+        - repeat-until: Ejecuta un bloque de código mientras la condición indicada al final sea verdadera.
+        - for genérico: Ejecuta el bloque de código utilizando un iterador distinto a los números.
+
+    Repetición Determinada:
+        - for numérico: Ejecuta el bloque de código iterando sobre una secuencia de números.
+    
+    Abstracción Procedural:
+        - function: Encapsula una secuencia de código reutilizable.
+        - local function: Es una función cuyo alcance es limitado al bloque de código donde se define.
+    
+    Recursión: No posee un nombre específico, es implementada mediante funciones que se llaman a sí mismas.
+
+    Concurrencia con Paralelismo Simulado:
+        - coroutines: Permite la suspensión o reanudación controlada del código, dado que no poseen un único punto de
+        entrada y salida.
+    
+    Manejo de Excepciones:
+        - pcall: Ejecuta el código de forma segura, retornando un booleano indicando el status de la llamada.
+        - xpcall: Similar a pcall, pero permite personalizar el mensaje de error.
+        - assert: Verifica una condición.
+        - error: Arroja una excepción si la condición indicada es falsa.
+    
+    No Determinismo Optimista:
+        - random: Generador de números aleatorios en un rango especificado.
+        - Selección aleatoria de tablas.
+
+2. Diga en qué orden evalúan expresiones y funciones.
+    En Lua, las expresiones se evalúan estrictamente de izquierda a derecha, los efectos secundarios de las operaciones
+    ocurren de forma secuencial y todas las subexpresiones son evaluadas antes de emplear sus valores.
+
+    Los operadores son evaluados según su orden de prioridad, de mayor a menor.
+
+    En las llamadas a funciones los argumentos son evaluados en el mismo orden en que son declarados (izq - der).
+
+    En las asignaciones los valores del lado derecho de la igualdad son evaluados antes de ser asignados.
+
+    Lua cuenta con la evaluación en cortocircuito para las expresiones booleanas.
+
+    En la construcción de tablas, los elementos son evaluados en el orden en que aparecen en el código.
+
+    2.a ¿Tiene evaluación normal o aplicativa? ¿Tiene evaluación perezosa?
+
+        Lua tiene evaluación aplicativa porque evalúa todos los argumentos de una función antes de ejecutarla, las
+        expresiones son evaluadas en el preciso momento que aparecen en el código y los valors son calculados y almacenados
+        antes de ser utilizados.
+
+        Lua no tiene evaluación perzosa por defecto, aunque esta puede ser simulada usando coroutines.
+
+    2.b La evaluación de argumentos/operandos se hace de izquierda a derecha, de derecha a izquierda
+    o en un orden arbitrario
+
+        La evaluación de argumentos/operandos en Lua se hace estrictamente de Izquierda a Derecha, es una característica
+        fundamental de la sintaxis de Lua. Esto se debe a que facilita la predictibilidad del código, refleja una consistencia
+        en el comportamiento y facilita el rastreo de efectos secundarios.
