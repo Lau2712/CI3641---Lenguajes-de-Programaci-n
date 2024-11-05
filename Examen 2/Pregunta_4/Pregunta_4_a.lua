@@ -127,18 +127,18 @@ file:close()
 
 -- Conclusiones:
 -- Eficiencia de tiempo:
---                      La versión iterativa es la más eficiente debido a que evita la sobrecarga de llamadas.
---                      La versión recursiva de cola es más eficiente que la recursiva directa.
---                      La versión recursiva directa muestra crecimiento exponencial en tiempo de ejecución.
+--                      La versión iterativa muestra los mejores tiempos para valores grandes.
+--                      La versión recursiva de cola mantiene tiempos intermedios entre los otros dos métodos.
+--                      La versión recursiva directa mantiene tiempos más rápidos para valores pequeños.
 -- Uso de memoria:
---                      La versión iterativa usa memoria de manera lineal O(n)
---                      La versión recursiva de cola mantiene un uso de memoria constante.
---                      La versión recursiva directa usa memoria exponencialmente.
+--                      La versión iterativa usa memoria de manera constante O(1).
+--                      La versión recursiva de cola optimiza el uso de la pila de llamadas.
+--                      La versión recursiva directa implica un mayor uso de memoria por las llamadas acumuladas.
 -- Complejidad:
 --                      Iterativa: O(n) en tiempo y espacio. 
 --                      Recursiva de cola: O(n) en tiempo, O(1) en espacio adicional.
 --                      Recursiva directa: O(α^(n/β)) en tiempo y espacio.
 -- Casos de uso:
---                      Para valores pequeños se puede usar cualquier implementación.
---                      Para valores medios es preferibles usar la iterativa o recursión de cola.
---                      Para valores grandes es recomendable usar exclusivamente la versión iterativa.
+--                      La iterativa es ideal para valores grandes y memoria limitada.
+--                      La recursiva de cola mantiene un buen rendimiento y cuando se prioriza la legibilidad.
+--                      La versión recursiva directa es recomendable para valores pequeños y cuando se prioriza la claridad del código.
