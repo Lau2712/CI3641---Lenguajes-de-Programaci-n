@@ -5,19 +5,23 @@
 -- Se desea que realice implementaciones, en el lenguaje imperativo de su elección:
 -- a) Una subrutina recursiva que calcule Fα,β para los valores de α y β obtenidos con 
 -- las fórmulas mencionadas anteriormente. Esta implementación debe ser una traducción 
--- discreta de la fórmula resultante a código.
+-- directa de la fórmula resultante a código.
 
--- Establecemos los valors de alpha y beta
+-- Establecemos los valores de alpha y beta
+-- alpha = ((3 + 0) mod 5) + 3 = 6
+-- beta = ((0 + 7) mod 5) + 3 = 5
 local alpha = 6
 local beta = 5
 
 -- Definimos la función recursiva que calcule Fα,β
 function F_recursiva(n)
+    -- Caso 1
     if n < alpha * beta then
         return n
     end
 
     local suma = 0
+    -- Caso 2
     for i = 1, alpha do
         suma = suma + F_recursiva(n - 5 * i)
     end
@@ -29,18 +33,21 @@ end
 
 -- Definimos la función recursiva de cola
 function F_cola(n, acumulado)
-
+    -- Sino se envía el valor del acumulador se asigna 0
     acumulado = acumulado or 0
 
+    -- Caso 1
     if n < alpha * beta then
         return n + acumulado
     end
-
+    
     local siguiente_acumulado = 0
+    -- Caso 2
     for i = 2, 6 do
         siguiente_acumulado = siguiente_acumulado + F_cola(n - 5 * i, 0)
     end
-
+    
+    -- Última llamada recursiva con el nuevo acumulado
     return F_cola(n - 5, siguiente_acumulado + acumulado)
 end
 
@@ -50,7 +57,8 @@ end
 
 -- Definimos la función iterativa
 function F_iterativo(n)
-    if n  < 30 then
+    -- Caso 1
+    if n  < alpha * beta then
         return n
     end
     -- La tabla memoria corresponde a los valores que se calcularían en cada llamada recursiva
@@ -58,10 +66,11 @@ function F_iterativo(n)
 
     -- Este bucle corresponde a construir la secuencia de valores
     for i = 0, n do
-        if i < 30 then
+        if i < alpha * beta then
             memoria[i] = i
         else
             local suma = 0
+            -- Caso 2
             -- Este bucle corresponde a la sumatoria de la definición original
             for j = 1, 6 do
                 suma = suma + memoria[i - 5 * j]
@@ -97,10 +106,11 @@ end
 local valores = {10, 20, 30, 40, 50, 60}
 local iteraciones = 1000
 
+-- Creamos un archivo que almacene los resultados para mostrarlos en el excel
 local file = io.open("resultados.txt", "w")
 file:write("n,Recursivo, Cola, Iterativo\n")
 
--- Ejecución
+-- Ejecución de los tiempos
 for _, n in ipairs(valores) do
     local time1, _ = tiempos(function() return F_recursiva(n) end, n, iteraciones)
     local time2, _ = tiempos(function() return F_cola(n, 0) end, n, iteraciones)
@@ -109,7 +119,7 @@ for _, n in ipairs(valores) do
     -- Escribir al archivo
     file:write(string.format("%d,%.9f,%.9f,%.9f\n", n, time1, time2, time3))
     
-    -- Mostrar en consola
+    -- Mostrar por la salida estándar
     print(string.format("n=%d: Recursivo=%.9f, Cola=%.9f, Iterativo=%.9f", n, time1, time2, time3))
 end
 
