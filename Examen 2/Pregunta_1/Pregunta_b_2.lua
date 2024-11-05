@@ -3,10 +3,12 @@
 -- sino explicar el funcionamiento a grandes rasgos y las decisiones de implementación.
 
 -- Optamos por crear nuevas tablas en lugar de modificar la original, priorizando la 
--- claridad en lugar de la eficiencia de memoria, lo cual no es in problema siempre y
--- cuando no se presente un caso donde la limitación de la memoria no es crítica.
+-- claridad en lugar de la eficiencia de memoria, lo cual funcionará siempre y cuando
+-- la limitación de memoria no sea un problema.
 -- Se aprovecha la optimización de Lua para los arreglos, además de no necesitar estructuras
 -- de datos adicionales porque las tablas son lo suficientemene flexibles.
+-- Aprovechamos el comando insert de Lua para realizar una inserción más sencilla en las
+-- tablas, en lugar de realizar la inserción por medio de la asignación índice a índice.
 
 
 -- Definimos Merge
@@ -19,7 +21,7 @@ function merge(left, right)
     -- Empleamos el operador # para obtener la longitud de las tablas
     while i <= #left and j <= #right do
         if left[i] <= right[j] then
-            -- Empleamos el comando insert en lugar de realizar la asignción directa de índices
+            -- Empleamos el comando insert en lugar de realizar la asignación directa de índices
             table.insert(resultado, left[i])
             i = i + 1
         else
