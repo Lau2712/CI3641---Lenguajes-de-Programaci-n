@@ -9,7 +9,10 @@ function iteradorOrdenado(lista)
     local visitado = {}
     local n = #lista
 
+    -- Función encargada de iterar, es retornada y llamada cada vez que se necesite el
+    -- siguiente valor.
     return function()
+        -- Verifica si quedan elementos por iterar
         if n == 0 then
             return nil
         end
@@ -27,6 +30,7 @@ function iteradorOrdenado(lista)
             end
         end
 
+        -- Marca el elemento como visitado y lo retorna
         if minIndice then
             visitado[minIndice] = true
             n = n - 1
