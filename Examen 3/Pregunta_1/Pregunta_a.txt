@@ -1,0 +1,89 @@
+a) Diga que tipos de datos posee y qué mecanismos ofrece para la creación de nuevos tipos (incluyendo tipos polimórficos)
+
+Los tipos de datos en Kotlin se pueden clasificar en varias categorías principales:
+
+Tipos Básicos o Built-in: tales como Numbers (Byte, Short, Int, Long, Float, Double), Boolean, Char, String y Array.
+
+Tipos Nullables: Kotlin incorpora una seguridad contra valores nulos, usando el operador '?', cualquier tipo puede ser nullable.
+Por ejemplo: String?, Int?, Double?; en todos los casos el valor puede ser nulo.
+
+Si queremos crear nuevos tipos, tenemos algunas opciones:
+1. Classes Regulares: se definen con la palabra "class" y permiten encapsular el estado y su comportamiento. Soportan constructores
+primarios y secuandarios.
+
+2. Data Classes: están diseñadas para clases que contienen principalmente datos, en su mayoría se usan con modelos inmutables.
+
+3. Sealed Classes: estas restringen la jerarquía de herencia y son ideales para representar estados finitos o tipos algebraicos.
+
+4. Abstract Classes: estas permiten que un estado sea compartido entre subclases y son útiles cuando se necesita una base común para
+una implementación.
+
+5. Interfaces: Estas pueden tener implementaciones po defecto y son ideales para definir comportamientos.
+
+6. Singleton: garantizan una única instancia y son útiles para servicios globales.
+
+7. Companion Objects: proporcionan miembros estáticos a una clase y son ideales para métodos utilitarios.
+
+8. Type Aliasses: Crean nombres alternativos para tipos ya existentes, además de mejorar la legibilidad del código.
+
+9. Generics (Tipos Polimórficos): permiten escribir código que funcione con múltiples tipos, además de soportar restricciones de tipo (bounds).
+
+10. Enums: representan un conjunto fijo de valores y son útiles para constantes que estén relacionadas.
+
+b) Describa el funcionamiento del sistema de tipos del lenguaje, incluyendo el tipo de equivalencia para sus tipo, reglas
+de compatibilidad y capacidades de inferencia de tipos.
+
+El sistema de tipos de Kotlin es estático y fuertemente tipado, además de robusto y flexible.
+
+Equivalencia de tipos: Kotlin utiliza una equivalencia estructural y nominal. Para las clases e interfaces se emplea principalmente
+la equivalencia nominal, mientras que pasa las funciones se emplea la equivalencia estructural basada en sus firmas.
+
+Reglas de Compatibilidad:
+1. Herencia y Subtipos: toda clase hereda implícitamente de Any, mientras que una clase solo puede heredar de una superclase y a su vez ésta
+puede implementar múltiples interfaces.
+
+2. Conversiones: existen las conversiones implícitas seguras entre números, así como también las conversiones explícitas usando funciones de 
+conversión (toInt(), toString(), etc).
+
+3. Smart Casts: se usa para conversiones automáticas después de comprobaciones de tipo.
+
+Inferencia de Tipos: Kotlin implementa el "local variable type inference" usando las asignaciones 'val' y 'var'. Además de tener
+soporte para la inferencia en funciones genéricas, en lambdas, funciones anónimas y en constructores de colecciones.
+
+Sistema de tipos Nullables: Kotlin posee la capacidad de distinción explícita entre tipos nullables y no-nullables, además de comprobar los nulos
+en timepo de compilación.
+
+Restricciones de tipo: Kotlin presenta bounds (cotas) superiores e inferiores, puede manejar múltiples restricciones usando where y
+posee restricciones de nulabilidad.
+
+Kotlin cuenta con Union Types los cuales son implementados por medio de las sealed classes, así como tipos algebraicos implementados 
+por sealed y data classes.
+
+Por último, el sistema de tipos de Kotlin proporciona: seguridad en tiempo de compilación, expresividad para modelar dominios complejos, 
+rendimiento optimizado y un código menos propenso a errores.
+
+c) Diga si la totalidad de los tipos de datos del lenguaje conforman un álgebra. Diga si posee construcciones que corresponden
+a: el tipo producto, el tipo suma, el tipo cero (neutro de la suma) y el tipo uno (neutro del producto).
+
+Sí, los tipos de datos en Kotlin conforman un álgebra de tipos, esto se puede identificar por medio de las construcciones algebraicas fundamentales:
+
+1. Tipo Producto: es representado por las classes y las data classes. Permite combinar múltiples tipos en una estructura, lo cual es equivalente al
+producto cartesiano String x Int.
+Por ejemplo:
+data class Persona(val nombre: String, val edad: Int)
+
+2. Tipo Suma: es representado por las sealed classes y enums, permite expresar alternativas entre tipos.
+Por ejemplo:
+sealed class Resultado {data class Exito(val data: String) : Resultado(), data class Error(val mensaje: String) : Resultado()}
+
+3. Tipo Cero: es el tipo que no tiene valores, representa el elemento neutro de la suma y es útil para funciones que nunca retornan.
+Por ejemplo:
+fun fallo(): Nothing = throw Exception("Fallo")
+
+4. Tipo Uno: representa el tipo que tiene un único valor, es el elemento neutro del producto y es equivalente a void en oitros lenguajes, pero es un tipo real.
+Por ejemplo: fun saludar(): Unit { println("Hola")}
+
+Las propiedades algebraicas se mantienen: distributividad, asociatividad (producto y suma), nothing es el elemento neutro de la suma y unit es el elemento
+neutro del producto.
+
+Esta estructura permite que el modelado de datos sea más preciso, el razonamiento sobre los tipos sea más formal y facilita el diseño de programas correctos.
