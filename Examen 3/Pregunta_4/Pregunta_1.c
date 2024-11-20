@@ -26,33 +26,32 @@ double sumaColumnasFilas(int **matriz, int N, int M) {
 
 // Función principal para medir tiempos
 void medirTiempos(int N, int M) {
-    // Asignación dinámica de la matriz
-    int **matriz = (int **)malloc(N * sizeof(int *));
+    // Asignación dinámica de la matriz por bloques
+    int **matriz = (int **)calloc(N, sizeof(int *));
     if (matriz == NULL) {
-        printf("No hay suficiente memoria para N=%d, M=%d\n", N, M);
+        printf("Asignación fallida para N=%d, M=%d\n", N, M);
         return;
     }
     
+    // Asignación por bloques para reducir la fragmentación de memoria
     for(int i = 0; i < N; i++) {
-        matriz[i] = (int *)malloc(M * sizeof(int));
+        matriz[i] = (int *)calloc(M, sizeof(int));
         if (matriz[i] == NULL) {
-            printf("No hay suficiente memoria para N=%d, M=%d\n", N, M);
-            // Liberar memoria ya asignada
             for(int j = 0; j < i; j++) {
                 free(matriz[j]);
             }
             free(matriz);
+            printf("Asignación fallida para N=%d, M=%d\n", N, M);
             return;
         }
     }
 
-    // Medición de tiempos para filas-columnas
     clock_t inicio, fin;
     double tiempo;
     
     printf("\nPara matriz de %dx%d:\n", N, M);
     
-    // Tres ejecuciones para filas-columnas
+    // Mediciones para filas-columnas
     for(int k = 0; k < 3; k++) {
         inicio = clock();
         sumaFilasColumnas(matriz, N, M);
@@ -61,7 +60,7 @@ void medirTiempos(int N, int M) {
         printf("Tiempo filas-columnas (ejecución %d): %f segundos\n", k+1, tiempo);
     }
     
-    // Tres ejecuciones para columnas-filas
+    // Mediciones para columnas-filas
     for(int k = 0; k < 3; k++) {
         inicio = clock();
         sumaColumnasFilas(matriz, N, M);
@@ -70,7 +69,7 @@ void medirTiempos(int N, int M) {
         printf("Tiempo columnas-filas (ejecución %d): %f segundos\n", k+1, tiempo);
     }
 
-    // Liberar memoria
+    // Liberación de memoria por bloques
     for(int i = 0; i < N; i++) {
         free(matriz[i]);
     }
@@ -85,7 +84,7 @@ int main() {
             medirTiempos(dimensiones[i], dimensiones[j]);
         }
     }
-    
+    printf("\nFIN\n");
     return 0;
 }
 
