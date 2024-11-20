@@ -4,13 +4,19 @@ class ConjuntoPersonas(private val personas: Set<Persona>) {
 
     fun contar(): Int = personas.size
 
-    fun adultos(): ConjuntoPersonas = ConjuntoPersonas(personas.filter { it.age >= 18}.toSet())
+    fun adultos(): ConjuntoPersonas = ConjuntoPersonas(personas.filter { it.edad >= 18}.toSet())
 
-    fun nombreComun(): String? = personas.groupBy { it.name }.maxByOrNull { it.value.size }?.key
+    fun nombreComun(): String? = personas.groupBy { it.nombre }.maxByOrNull { it.value.size }?.key
 }
 
 // Ejemplo de uso:
-// val people: ConjuntoPersonas(setOf(Persona("Ana", 20), Persona("Bob", 15), Persona("Ana", 25), Persona("Carlos", 18)))
-// val total = personas.contar()
-// val adultos = personas.adultos()
-// val nombreComun = personas.nombreComun()
+// fun main() {
+//     val people = ConjuntoPersonas(setOf(Persona("Ana", 20), Persona("Bob", 15), Persona("Ana", 25), Persona("Carlos", 18)))
+//     val total = people.contar()
+//     val adultos = people.adultos()
+//     val nombreComun = people.nombreComun()
+
+//     println(total)
+//     println(adultos)
+//     println(nombreComun)
+// }
