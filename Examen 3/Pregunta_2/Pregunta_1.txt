@@ -1,0 +1,28 @@
+Calculamos los valores de todas las variables:
+L1 = min(3,0) = 0
+L2 = min(3,7) = 3
+L3 = min(0,7) = 0
+U1 = max(3,0) + 1 = 4
+U2 = max(3,7) + 1 = 8
+U3 = max(0,7) + 1 = 8
+I = (0 + 4)/2 = 2
+J = (3 + 8)/2 = 5
+K = (0 + 8)/2 = 4
+
+Determinamos las dimensiones del arreglo:
+primera dimension (d1): U1 - L1 + 1 = 4 - 0 + 1 = 5
+segunda dimension (d2): U2 - L2 + 1 = 8 - 3 + 1 = 6
+tercerda diimension (d3): U3 - L3 + 1 = 8 - 0 + 1 = 9
+
+Calculamos las direcciones de M[I][J][K] si las matrices se guardan en row major
+base + [(I - L1)d2d3 + (J - L2)*d3 + (K - L3)] * tamaño_tipo
+Sustittuyendo nos queda: 0 + [(2-0)69 + (5-3)9 + (4-0)] * 4 = [(254) + (2*9) + 4] * 4 
+Lo cual es igual a: [108 + 18 + 4] * 4 = 130 * 4 = 520
+
+Calculamos la dirección de M[I][J][K] si las matrices se guardan en column major
+base + [(K - L3)d1d2 + (J - L2)*d1 + (I - L1)] * tamaño_tipo
+Sustituyendo nos queda: 0 + [(4-0)56 + (5-3)*5 + (2-0)] * 4
+Lo cual es igual a: [120 + 10 + 2] * 4 = 132 * 4 = 528
+
+Por lo tanto, en row major la direccion de M[I][J][K] es 520 y en column major la dirección de M[I][J][K] es 528
+Las direcciones son diferentes debido a la forma en que se almacenan los elementos en memoria según cada método de organización.
