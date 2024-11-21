@@ -1,3 +1,4 @@
+// Programa que suma todos los elementos de una matriz de dos dimensiones en C
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

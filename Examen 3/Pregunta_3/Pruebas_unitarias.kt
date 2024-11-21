@@ -47,7 +47,7 @@ class MemoryCalculatorTest {
             "test nested union" to testNestedUnion()
         )
     }
-
+    // Prueba de la calculación de la union
     private fun testUnionCalculation(): Boolean {
         val typeManager = TypeManager()
         return try {
@@ -63,7 +63,7 @@ class MemoryCalculatorTest {
             false
         }
     }
-
+    // Prueba de la creación de un tipo de datos complejo
     private fun testComplexStruct(): Boolean {
         val typeManager = TypeManager()
         return try {
@@ -78,7 +78,7 @@ class MemoryCalculatorTest {
             false
         }
     }
-
+    // Prueba union invalida
     private fun testInvalidUnion(): Boolean {
         val typeManager = TypeManager()
         return try {
@@ -88,7 +88,7 @@ class MemoryCalculatorTest {
             false
         }
     }
-
+    // Prueba struct anidado
     private fun testNestedStruct(): Boolean {
         val typeManager = TypeManager()
         return try {
@@ -102,7 +102,7 @@ class MemoryCalculatorTest {
             false
         }
     }
-
+    // prueba union anidada
     private fun testNestedUnion(): Boolean {
         val typeManager = TypeManager()
         return try {
@@ -116,7 +116,7 @@ class MemoryCalculatorTest {
             false
         }
     }
-
+    // prueba añadir tipo atomico
     private fun testAddAtomicType(): Boolean {
         val typeManager = TypeManager()
         return try {
@@ -127,7 +127,7 @@ class MemoryCalculatorTest {
             false
         }
     }
-
+    // prueba de la descripción de un tipo atomico
     private fun testDescribeAtomicType(): Boolean {
         val typeManager = TypeManager()
         return try {
@@ -142,7 +142,7 @@ class MemoryCalculatorTest {
             false
         }
     }
-
+    // prueba calculación de struct
     private fun testStructCalculation(): Boolean {
         val typeManager = TypeManager()
         return try {
@@ -157,7 +157,7 @@ class MemoryCalculatorTest {
             false
         }
     }
-
+    // prueba struct invalida
     private fun testInvalidStruct(): Boolean {
         val typeManager = TypeManager()
         return try {
@@ -167,7 +167,7 @@ class MemoryCalculatorTest {
             false
         }
     }
-
+    // prueba descripción de tipo no existente
     private fun testDescribeNonexistent(): Boolean {
         val typeManager = TypeManager()
         return try {

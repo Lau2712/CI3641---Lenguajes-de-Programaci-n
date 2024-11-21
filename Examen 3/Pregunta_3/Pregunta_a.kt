@@ -1,3 +1,7 @@
+// Modelar e implementar, un programa que simule un manejador de tipos de datos
+// NOTA: Para ejecutar el programa se debe descomentar el código main de este archivo, si por el contrario se desea ejecutar el programa
+// de pruebas unitarias se debe dejar comentada la función main tal como se encuentra durante la entrega.
+
 package main
 
 // Definimos las clases base para los tipos de datos

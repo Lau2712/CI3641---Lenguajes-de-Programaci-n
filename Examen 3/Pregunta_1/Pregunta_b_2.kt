@@ -1,3 +1,4 @@
+// Defina un tipo que represente conjuntos de personas, donde cada persona tiene un nombre y edad
 data class Persona(val nombre: String, val edad: Int)
 
 class ConjuntoPersonas(private val personas: Set<Persona>) {

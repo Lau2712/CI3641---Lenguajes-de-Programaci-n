@@ -1,3 +1,5 @@
+// Defina un tipo de datos recursivo que represente numerales de Church
+
 sealed class Church {
     object Zero : Church()
     data class Suc(val n: Church) : Church()
