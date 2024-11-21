@@ -107,6 +107,3 @@ int main() {
 // Variables globales se almacenan en el segmento de datos
 // Variables locales se almacenan en la pila
 // Para matrices grandes, es preferible usar asignación dinámica (heap)
-
-// Para compilar y ejecutar el programa:
-// gcc -o matriz_suma matriz_suma.c
