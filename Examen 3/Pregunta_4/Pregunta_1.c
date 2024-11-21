@@ -90,20 +90,18 @@ int main() {
 
 // Análisis de los resultados:
 
-// Diferencia entre implementaciones:
-// Sí hay diferencias en los tiempos de ejecución entre las dos implementaciones debido al principio de localidad espacial y temporal de la memoria caché.
-// La versión filas-columnas suele ser más rápida porque accede a elementos contiguos en memoria, aprovechando mejor la caché.
-// Efecto de la forma de la matriz:
-// La forma de la matriz afecta significativamente el rendimiento.
-// Matrices rectangulares pueden mostrar diferentes comportamientos dependiendo de si son más anchas o altas.
-// El patrón de acceso a memoria es más eficiente cuando se recorre siguiendo el layout en memoria (por filas en C).
-// Variación en múltiples ejecuciones:
-// Los tiempos pueden variar ligeramente entre ejecuciones debido a:
-// Actividad del sistema operativo
-// Estado de la caché
-// Otros procesos en ejecución
-// Efecto de la declaración global vs local:
-// La declaración global (estática) vs local (pila) puede afectar el rendimiento:
-// Variables globales se almacenan en el segmento de datos
-// Variables locales se almacenan en la pila
-// Para matrices grandes, es preferible usar asignación dinámica (heap)
+// Si existe una diferencia en los tiempos de ejecución de filas-columnas y columnas-filas, esto principalmente
+// se debe al principio de localidad espacial y temporal de la memoria caché.
+// La versión filas-columnas suele ser más eficiente porque accede a elementos de la memoria, dandole un mejor uso al caché.
+
+// La forma de la matriz afecta también significativamente el rendimiento. Si la matriz es rectangular puede tener distintos comportamientos
+// depediendo de si es más ancha o alta.
+
+// El patrón de acceso a la memoria es más eficiente cuando la matriz es recorrida siguiendo el patrón de la memoria (en C es por filas)
+
+// Finalmente, al ejecutar el programa observamos la variación que ocurre en múltiples ejecuciones: destacamos principalmente que los tiempo 
+// pueden variar ligera o considerablemente dependiendo de la actividad del sistema operativo (si sólo se ejecuta el programa o se están realizando
+// otras tareas), el estado de la memoria caché, el efecto de almacenar las variables globales en el segmento de datos y de almacenar las variables
+// locales en una pila.
+
+// Para matrices de gran tamaño, se recomienda emplear la asignación dinámica de memoria (heap)
