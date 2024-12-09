@@ -1,0 +1,87 @@
+a) Da una breve descripción del lenguaje escogido
+    1. Explique la manera de crear y manipular objetos que tiene el lenguaje, incluyendo: constructores,
+    métodos, campos, etc.
+
+    En Java, la creación y manipulación de objetos siguen el paradigma de la programación orientada a objetos. La creación de objetos
+    se realiza mediante un proceso de dos pasos: primero se define una clase que actúa como un "plano" en donde se especifican los 
+    atributos y comportamientos que tendrán los objetos, y luego se instancian objetos específicos de esa clase usando el operador new,
+    el cual reserva memoria y ejecuta el constructor apropiado. 
+
+    - Declaración de clases:
+                            - Para definirlas siempre se requiere la palabra "class" seguida del nombre de la clase.
+                            - Los atributos definen las características de los objetos, como su tipo, nombre y valor inicial.
+                            - Los constructores pueden ser por defecto (sin parámetros), parametrizados y de copia.
+                            - Los métodos se declaran con el modificador de acceso, el tipo de retorno, el nombre, los parámetros y el
+                            cuerpo del método.
+    - Instanciación:
+                            - El operador new reserva memoria en el heap.
+                            - El constructor inicializa el estado inicial del objeto.
+                            - Se crea una referencia al objeto en la memoria.
+
+    Por otro lado, la manipulación se realiza a través de referencias, utilizando el operador '.' para acceder a sus métodos y atributos,
+    permitiendo modificar su estado interno, invocar comportamientos y establecer relaciones entre objetos. Todo esto se gestiona en la 
+    memoria de forma automática debido al recolector de basura de Java, el cual se encarga de liberar la memoria cuando los objetos ya nos
+    son referenciados, proporcionando así un manejo eficiente y seguro de los recursos.
+
+    - Acceso a atributos:
+                        - Posee getters los cuales son métodos que obtienen valores.
+                        - Posee setters los cuales son métodos que establecen valores.
+                        - Posee acceso directo solo si el atributo es public.
+                        - Posee encadenamiento de referencias.
+    - Llamadas a métodos:
+                        - Llamada a métodos void (no retornan valor).
+                        - Llamada a métodos con retorno (guardar o usar el valor retornado).
+                        - Llamada a métodos encadenados (metodo1().metodo2()).
+                        - Llamada a métodos estáticos (llamados desde la clase).
+    - Modificación de estado:
+                        - Modificar valores individuales mediante setters.
+                        - Actualizar múltiples atributos con métodos específicos.
+                        - Modificar colecciones agregando, eliminando y actualizando elementos.
+                        - Cambiar referencias a otros objetos.
+    - Destrucción:
+                        - La Garbage collector detecta obejtos sin referencias, libera memoria automáticamente y no se puede controlar directamente.
+                        - Se liberan reursos mediante el cierre de conexiones, la liberación de archivos y al limpiar buffers.
+    
+    2. Describa el funcionamiento del manejo de memoria, ya sea explícito (new/delete) o implícito (recolector de basura).
+    El manejo de memoria en Java es principalmente implicito, utilizando un recolector de basura (Garbage Collector).
+
+    Al momento de asignar la memoria, Java utiliza el operador 'new' para asignar memoria en el heap, luego la memoria se divide en dos
+    regiones principales: Stack (para variables locales y referencias) y Heap (para objetos y arrays). A diferencia de otros lenguajes, 
+    en Java no existe un operador 'delete'.
+
+    Por otra parte el Garbage Collector se ejecuta automáticamente, éste identifica los objetos que ya no están referenciados y libera la
+    memoria ocupada por estos obejtos. Tiene diferentes algoritmos y estrategias de recolección, además que puede ejecutarse en diferentes
+    momentos, por ejemplo: cuando la memoria está baja, en ciclos programados y cuando se solicita explícitamente por medio del System.gc()
+
+    El hecho de manejar la memoria de ésta forma previene las fugas, reduce errores de programación, simplifica el desarrollo y facilita la 
+    ejecución por el manejo automático. Sin embarho, no se puede constrolas exactamente el momento en el que se libera la memoria, lo cual puede
+    causar pausas en la ejecución y consume recursos adicionales del sistema.
+
+    3. Diga si el lenguaje usa asociación estáticas o dinámica de métodos y si hay forma de alterar la elección por el defecto del lenguaje.
+    Java utiliza ambos tipos de asociación, mejor conocido como binding de métodos, pero de forma diferente según el contexto:
+
+    - Por defecto: se usa asociación estática (early binding) de métodos, se emplea en métodos estáticos, finales y privados..
+    Se usa asociación dinámica (late binding), se emplea en métodos virtuales, es decir, en la mayoría de métodos de instancias.
+
+    - Comportamiento: en la asosiación estática se resuelve en tiempo de compilación, mientras que en la asociación dinámica se resuelve en
+    tiempo de ejecución basándose en el tipo real del objeto.
+
+    - Alteración del comportamiento por defecto: La palabra clave 'final' fuerza la asosiación estática, no hay forma de convertir un método con
+    binding estático a dinámico. El binding dinámico no se puede desactivar para métodos virtuales.
+
+    4. Describa la jerarquía de tipos, incluyendo mecanismo de herencia múltiple, polimorfismo paramétrico y manejo de varianzas.
+
+    - Herencia: existe la herencia simple, la cual es la herencia de clases y la herencia múltiple, la cual ocurre sólo a través de interfaces.
+    Para las clases se emplea la palabra clave 'extends', para las interfaces se emplea la palabra clave 'implements'.
+
+    - Polimorfimos Paramétrico: Fue introducido en Java 5, permite definir métodos genéricos que pueden ser utilizados con diferentes tipos.
+    Soporta comodines, mejor conocidos como 'wildcards', que permiten el uso de tipos arbitrarios en lugar de los tipos específicos.
+    
+    - Varianza: Existe la covarianza, la cual se aplica en los Arrays y wildcards con 'extends', la contravarianza la cual se aplica con
+    las wildcards con 'super' y la invarianza la cual se aplica en los Generics por defecto.
+
+    Cabe destacar que no se permite la herencia múltiple de clases, así como la especialización de tipos primitivos, ni los genéricos de tipos primitvos.
+
+    
+
+
