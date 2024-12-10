@@ -37,7 +37,7 @@ public class Main {
             return;
         }
 
-        // Get the full command after "CLASS"
+        // Obtenemos el string posterior a CLASS
         StringBuilder fullCommand = new StringBuilder();
         for (int i = 1; i < parts.length; i++) {
             fullCommand.append(parts[i]).append(" ");
@@ -48,7 +48,7 @@ public class Main {
         String superClassName = null;
         List<String> methods = new ArrayList<>();
 
-        // Parse class and inheritance
+        // Clases y herencias
         String[] classAndMethods = command.split("\\s+");
         String classDeclaration = classAndMethods[0];
         
@@ -65,17 +65,14 @@ public class Main {
         }
         
 
-        // Parse methods
+        // Se obtienen los métodos de la clase
         for (int i = 1; i < classAndMethods.length; i++) {
             if ((!classAndMethods[i].equals(":")) && (!classAndMethods[i].equals(superClassName))) {
                 methods.add(classAndMethods[i]);
             }
         }
 
-        System.out.println("Debug - Class: " + className);
-        System.out.println("Debug - Superclass: " + superClassName);
-        System.out.println("Debug - Methods: " + methods);
-
+        // Se agrega la clase
         vmt.addClass(className, superClassName, methods);
     }
 }

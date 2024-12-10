@@ -5,10 +5,12 @@ import java.util.*;
 public class TablaMetodoVirtual {
     private Map<String, DefinicionClases> classes;
     
+    // Constructor
     public TablaMetodoVirtual() {
         classes = new HashMap<>();
     }
 
+    // Función para agregar una clase
     public boolean addClass(String name, String superClassName, List<String> methods) {
         // Verificar si la clase ya existe
         if (classes.containsKey(name)) {
@@ -39,6 +41,7 @@ public class TablaMetodoVirtual {
         return true;
     }
 
+     // Función para detectar ciclos en la herencia
     private boolean detectCycle(String className, String currentSuper) {
         if (className.equals(currentSuper)) return true;
         DefinicionClases superClass = classes.get(currentSuper);
@@ -46,6 +49,7 @@ public class TablaMetodoVirtual {
         return detectCycle(className, superClass.getSuperClassName());
     }
 
+    // Función para describir la clase
     public List<Metodo> describeClass(String className) {
         if (!classes.containsKey(className)) {
             System.out.println("Error: La clase " + className + " no existe");
@@ -66,23 +70,36 @@ public class TablaMetodoVirtual {
         return virtualTable;
     }
 
+    // Función para construir la tabla de métodos virtuales
     private void buildVirtualTable(String className, Map<String, String> methodOwners) {
         DefinicionClases classDef = classes.get(className);
         
-        System.out.println("Debug - Processing class: " + className);
-        System.out.println("Debug - Methods in current class: " + classDef.getMethods());
+        addSuperClassMethods(classDef, methodOwners);
         
-        if (classDef.hasInheritance()) {
-            DefinicionClases superClass = classes.get(classDef.getSuperClassName());
-            for (String method : superClass.getMethods()) {
-                methodOwners.put(method, superClass.getName());
-            }
-        }
-        
-        // Add/override with current class methods
+        // Añadir los métodos de la clase actual
         for (String method : classDef.getMethods()) {
             methodOwners.put(method, className);
         }
     }
+
+    // Función para obtener los métodos de una superclase
+    private void addSuperClassMethods(DefinicionClases classDef, Map<String, String> methodOwners) {
+        if (classDef.hasInheritance()) {
+            String superClassNameAux = classDef.getSuperClassName();
+            DefinicionClases superClass = classes.get(superClassNameAux);
+            
+            // Se añaden los métodos de la superclase actual
+            for (String method : superClass.getMethods()) {
+                // Solo se añade si el método no ha sido sobreescrito
+                if (!methodOwners.containsKey(method)) {
+                    methodOwners.put(method, superClass.getName());
+                }
+            }
+            
+            // Llamada recursiva para las superclases
+            addSuperClassMethods(superClass, methodOwners);
+        }
+    }
 }
+
 
