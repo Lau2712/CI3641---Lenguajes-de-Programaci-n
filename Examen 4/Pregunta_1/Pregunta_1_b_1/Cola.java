@@ -1,9 +1,10 @@
+package Pregunta_1.Pregunta_1_b_1;
 import java.util.ArrayList;
 
-public class Pila<T> implements Secuencia<T> {
+public class Cola<T> implements Secuencia<T> {
     private ArrayList<T> elementos;
     
-    public Pila() {
+    public Cola() {
         elementos = new ArrayList<>();
     }
     
@@ -13,13 +14,12 @@ public class Pila<T> implements Secuencia<T> {
     
     public T remover() {
         if (vacio()) {
-            throw new SecuenciaVaciaException("La pila está vacía");
+            throw new SecuenciaVaciaException("La cola está vacía");
         }
-        return elementos.remove(elementos.size() - 1);
+        return elementos.remove(0);
     }
     
     public boolean vacio() {
         return elementos.isEmpty();
     }
 }
-
