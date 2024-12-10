@@ -1,0 +1,21 @@
+-- Dado el siguiente tipo de datos que representa árboles binarios con información en las ramas: data Arbol a = Hoja | Rama a (Arbol a) (Arbol a)
+-- Construya una función foldA (junto con su firma) que permita reducir un valor de tipo (Arbol a) a algún tipo b (de forma análoga a foldr). Su 
+-- implementación debe poder tratar con estructuras potencialmente infinitas.
+-- Su función debe cumplir con la siguiente firma: foldA :: (a -> b -> b -> b) -> b -> Arbol a -> b
+
+-- Analizando la firma que debe cumplir la función observamos que el primer parámetro es una función que toma un valor de tipo 'a' y dos valores de
+-- tipo 'b' para producir un 'b'. Los otros dos parámetros son un valor de tipo 'b' y un árbol de tipo 'Arbol a', el resultado es un valor de tipo 'b'.
+
+-- Luego, la implementación sería:
+data Arbol a = Hoja | Rama a (Arbol a) (Arbol a)
+
+foldA :: (a -> b -> b -> b) -> b -> Arbol a -> b
+foldA f base Hoja = base
+foldA f base (Rama x izq der) = f x (foldA f base izq) (foldA f base der)
+
+-- Como el lenguaje manejado es similar a Haskell, asumimos que así como Haskell usa la evaluación perezosa, lo que significa que los cálculos solo se
+-- realizan cuando son necesarios y por ende la función puede manejar estructuras potencialmente infinitas.
+
+-- Ejemplo: sumar todos los valores del árbol
+sumarArbol :: Num a => Arbol a -> a
+sumarArbol = foldA (\x izq der -> x + izq + der) 0
