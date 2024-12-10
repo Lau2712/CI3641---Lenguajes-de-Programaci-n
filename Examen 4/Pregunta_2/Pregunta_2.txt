@@ -1,4 +1,4 @@
-Tomando como referencia X 0 3, Y = 0, Z = 7, considere las siguientes definiciones de clases, escritas en pseudocódigo.
+Tomando como referencia X = 3, Y = 0, Z = 7, considere las siguientes definiciones de clases, escritas en pseudocódigo.
 
 class Bebida {
     int a = X, b = Y
