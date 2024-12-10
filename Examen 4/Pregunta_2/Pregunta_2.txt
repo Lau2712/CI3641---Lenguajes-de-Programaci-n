@@ -1,0 +1,126 @@
+Tomando como referencia X 0 3, Y = 0, Z = 7, considere las siguientes definiciones de clases, escritas en pseudocódigo.
+
+class Bebida {
+    int a = X, b = Y
+
+    fun s(int x): int {
+        a = b + x 
+        return t(a)
+    }
+
+    fun t(int y): int {
+        return b * y + a
+    }
+}
+
+class Cafe extends Bebida {
+    Bebida caliente = new Marron()
+
+    fun t(int y) : int {
+        return caliente.s(a + b) + y 
+    }
+}
+
+class Marron extends Cafe {
+    int c = Z
+
+    fun s(int x): int {
+        a = c + x - 2
+        c = a + b * x 
+        return t(a * b + c)
+    }
+
+    fun t(int y): int {
+        return c - y
+    }
+}
+
+Considere además el siguiente fragmento de código:
+    Bebida e = new Cafe()
+    Bebida pres = new Marron()
+    Cafe o = new Marron()
+
+    print(e.s(1) + pres.s(1) + o.s(1))
+
+Diga que imprime el programa en cuestión si el lenguaje tiene: asosiación estática de métodos y asosiación dinámica de métodos.
+
+Asociación Estática (basada en el tipo declarado):
+
+Para e.s(1) donde e es de tipo Bebida:
+Pila:
+[Bebida.s(1)]
+  a = 0, b = 0
+  a = b + 1 = 1
+[Bebida.t(1)]
+  return b * 1 + a = 0 * 1 + 1
+Retorna: 1
+
+pres.s(1):
+Pila:
+[Bebida.s(1)]
+  a = 0, b = 0
+  a = b + 1 = 1
+[Bebida.t(1)]
+  return b * 1 + a = 0 * 1 + 1
+Retorna: 1
+
+o.s(1):
+Pila:
+[Cafe.s(1)]
+  a = 3, b = 0
+[Marron.s(3)]
+  c = 7
+  a = c + 1 - 2 = 6
+  c = a + b * 1 = 6
+[Cafe.t(6)]
+  return c - 6 = 0
+[Cafe.s] continúa
+  return 0 + 1
+Retorna: 1
+
+Total: 1 + 1 + 1 = 3
+
+Asociación Dinámica (basada en el tipo real):
+
+e.s(1) (e es realmente un Cafe):
+Pila:
+[Cafe.s(1)]
+  a = 3, b = 0
+[Marron.s(3)]
+  c = 7
+  a = c + 1 - 2 = 6
+  c = a + b * 1 = 6
+[Marron.t(6)]
+  return c - 6 = 0
+[Cafe.s] continúa
+  return 0 + 1
+Retorna: 1
+
+pres.s(1) (pres es realmente un Marron):
+Pila:
+[Marron.s(1)]
+  c = 7
+  a = c + 1 - 2 = 6
+  c = a + b * 1 = 6
+[Marron.t(6)]
+  return c - 6 = 0
+Retorna: 0
+
+o.s(1) (o es realmente un Marron):
+Pila:
+[Marron.s(1)]
+  c = 7
+  a = c + 1 - 2 = 6
+  c = a + b * 1 = 6
+[Marron.t(6)]
+  return c - 6 = 0
+Retorna: 0
+
+Total: 1 + 0 + 0 = 1
+
+Estado final de variables en cada llamada:
+
+Bebida: a = 3, b = 0
+Cafe: a = 3, b = 0
+Marron: a = 6, b = 0, c = 6
+
