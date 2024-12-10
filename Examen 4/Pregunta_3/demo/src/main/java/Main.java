@@ -37,21 +37,44 @@ public class Main {
             return;
         }
 
-        String className;
+        // Get the full command after "CLASS"
+        StringBuilder fullCommand = new StringBuilder();
+        for (int i = 1; i < parts.length; i++) {
+            fullCommand.append(parts[i]).append(" ");
+        }
+        String command = fullCommand.toString().trim();
+
+        String className = null;
         String superClassName = null;
         List<String> methods = new ArrayList<>();
+
+        // Parse class and inheritance
+        String[] classAndMethods = command.split("\\s+");
+        String classDeclaration = classAndMethods[0];
         
-        if (parts[1].contains(":")) {
-            String[] inheritance = parts[1].split(":");
+        
+        if (classAndMethods[1].contains(":")) {
+            String[] inheritance = command.split(":", 2);
             className = inheritance[0].trim();
-            superClassName = inheritance[1].trim();
+            if (inheritance.length > 1) {
+                String superClassAux = inheritance[1].trim();
+                superClassName = superClassAux.substring(0,1);
+            }
         } else {
-            className = parts[1];
+            className = classDeclaration;
+        }
+        
+
+        // Parse methods
+        for (int i = 1; i < classAndMethods.length; i++) {
+            if ((!classAndMethods[i].equals(":")) && (!classAndMethods[i].equals(superClassName))) {
+                methods.add(classAndMethods[i]);
+            }
         }
 
-        for (int i = 2; i < parts.length; i++) {
-            methods.add(parts[i]);
-        }
+        System.out.println("Debug - Class: " + className);
+        System.out.println("Debug - Superclass: " + superClassName);
+        System.out.println("Debug - Methods: " + methods);
 
         vmt.addClass(className, superClassName, methods);
     }

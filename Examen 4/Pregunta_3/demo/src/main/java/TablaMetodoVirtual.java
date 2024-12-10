@@ -69,14 +69,20 @@ public class TablaMetodoVirtual {
     private void buildVirtualTable(String className, Map<String, String> methodOwners) {
         DefinicionClases classDef = classes.get(className);
         
-        // Primero procesar la superclase si existe
+        System.out.println("Debug - Processing class: " + className);
+        System.out.println("Debug - Methods in current class: " + classDef.getMethods());
+        
         if (classDef.hasInheritance()) {
-            buildVirtualTable(classDef.getSuperClassName(), methodOwners);
+            DefinicionClases superClass = classes.get(classDef.getSuperClassName());
+            for (String method : superClass.getMethods()) {
+                methodOwners.put(method, superClass.getName());
+            }
         }
         
-        // Luego agregar/sobrescribir los métodos de esta clase
+        // Add/override with current class methods
         for (String method : classDef.getMethods()) {
             methodOwners.put(method, className);
         }
     }
 }
+
