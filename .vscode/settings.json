@@ -2,5 +2,9 @@
     "files.readonlyInclude": {
         "{**/.c4z/.extsrcs/*.PROTSYM.cbl,**/.c4z/.extsrcs/*.PROTSYM.listing}": true
     },
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.project.sourcePaths": [
+        "Examen 4/Pregunta_1/Pregunta_1_b_1",
+        "Examen 4/Pregunta_1/Pregunta_1_b_2"
+    ]
 }

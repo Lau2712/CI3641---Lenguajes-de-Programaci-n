@@ -1,4 +1,3 @@
-package Pregunta_1.Pregunta_1_b_1;
 
 public class Main {
     public static void main(String[] args) {

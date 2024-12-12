@@ -1,4 +1,3 @@
-package Pregunta_1.Pregunta_1_b_1;
 import java.util.ArrayList;
 
 public class Pila<T> implements Secuencia<T> {

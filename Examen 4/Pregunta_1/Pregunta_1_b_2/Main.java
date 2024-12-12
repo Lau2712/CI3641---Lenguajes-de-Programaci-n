@@ -1,5 +1,3 @@
-package Pregunta_1.Pregunta_1_b_2;
-
 public class Main {
     public static void main(String[] args) {
         Grafo graph = new Grafo();

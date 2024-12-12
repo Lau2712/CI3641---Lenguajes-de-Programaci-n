@@ -1,5 +1,3 @@
-package Pregunta_1.Pregunta_1_b_2;
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
